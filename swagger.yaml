@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: API Documentation
+
+paths:
+  /api/recipes:
+    post:
+      tags:
+        - recipes
+      security:
+        - BearerAuth: []
+      summary: Post a new recipe
+      operationId: postRecipe
+      responses:
+        "200":
+          description: Successful operation
+          
+
+    get:
+      tags:
+        - recipes
+      summary: Get all recipes
+      operationId: getAllRecipe
+      responses:
+        "200":
+          description: Successful operation
+
+  api/recipes/{id}:
+    get:
+      tags:
+        - recipes
+      summary: Get a recipe by ID
+      operationId: getRecipeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the recipe to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+
+    put:
+      tags:
+        - recipes
+      security:
+        - BearerAuth: []
+      summary: Update a recipe by ID
+      tags:
+        - Authentication
+      operationId: updateRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the recipe to update
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+
+    delete:
+      tags:
+        - recipes
+      security:
+        - BearerAuth: []
+      summary: Delete a recipe by ID
+      operationId: deleteRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the recipe to delete
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+
+  /:
+    get:
+      summary: Protected route
+      tags:
+        - Authentication
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Protected route accessed
+  /loggout:
+    get:
+      summary: User logged out
+      tags:
+        - Authentication
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful operation
+  /register:
+    post:
+      summary: Register a new user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+      responses:
+        "200":
+          description: Successful operation
+  /login:
+    post:
+      summary: User login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+      responses:
+        "200":
+          description: Successful operation
+
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      properties: // Define your user registration properties here
+    UserLogin:
+      type: object
+      properties: // Define your user login properties here
+
+securitySchemes:
+  BearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
