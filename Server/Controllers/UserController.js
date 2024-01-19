@@ -1,7 +1,7 @@
-const { findOne } = require('../Models/Database');
 const User = require('../Models/Userdb');
 const bcrypt = require ('bcrypt');
 const jwt = require ("jsonwebtoken");
+
 
 // Register 
 
@@ -23,7 +23,7 @@ const postRegister = async(req, res) => {
             name,
             email ,
             password : hachPassword
-        })
+                })
         res.status(201).json({
             success : true,
             message: 'user created successfuly',
@@ -59,7 +59,8 @@ const postLogin = async(req , res) => {
             status: 200,
              success: true,
              message: "login success",
-              token
+              token,
+              role: isUserExist.role
         })
     } catch (error) {
         res.status(500).json({message :"Login Failed"})
