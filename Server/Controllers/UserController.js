@@ -73,6 +73,9 @@ const userLoggout = (req, res) => {
     res.status(200).json({message : "User logged out"})
 }
 
+
+
+
 module.exports ={
     postRegister  , postLogin , userLoggout
 }
