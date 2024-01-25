@@ -6,7 +6,16 @@ const userRoutes = require("./Server/Routes/users.routes");
 const cookieParser = require("cookie-parser");
 const port = 3000;
 const app = express();
-const {MONGO_URL} = process.env
+const {MONGO_URL} = process.env;
+const Yaml = require("yamljs");
+const swaggerDocument = Yaml.load('./swagger.yaml')
+
+// swagger 
+
+const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+
+app.use('/docs' , swaggerUi.serve , swaggerUi.setup(swaggerDocument) )
 
 mongoose.connect(MONGO_URL)
 .then (()=> {
